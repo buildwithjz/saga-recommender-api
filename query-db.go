@@ -18,10 +18,12 @@ func query_db_with_topic(topic string) []bson.M {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(build_connection_string()))
+	
 
 	defer func() {
 		if err = client.Disconnect(ctx); err != nil {
 			fmt.Println(err)
+			panic(err)
 		}
 	}()
 
@@ -57,12 +59,13 @@ func get_topics(category string) []bson.M {
 	defer func() {
 		if err = client.Disconnect(ctx); err != nil {
 			fmt.Println(err)
+			panic(err)
 		}
 	}()
 
 	//CHANGE THIS LINE
 	collection := client.Database("saga").Collection("topics")
-	//collection := client.Database(os.Getenv("DB_NAME")).Collection("links")
+	//collection := client.Database(os.Getenv("DB_NAME")).Collection("topics")
 
 	cur, err := collection.Find(ctx, bson.M{})
 	if err != nil { 
