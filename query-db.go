@@ -14,7 +14,7 @@ import (
 func query_db_with_topic(topic string) []bson.M {
 	var links []bson.M
 
-	//TODO: Research Go Context
+	// TODO: Research Go Context
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(build_connection_string()))

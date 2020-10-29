@@ -50,6 +50,11 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+// VALID PATHS:
+// - /api/recommend[?<topic>]
+// - /hello
+// - /headers
+
 func main() {
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
@@ -57,4 +62,3 @@ func main() {
 	
 	http.ListenAndServe(":8090", nil)
 }
-	
