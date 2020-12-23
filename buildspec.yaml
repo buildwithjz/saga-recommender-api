@@ -4,7 +4,7 @@ phases:
 
   pre_build:
     commands:
-      - yum install go
+      - apt-get install go -y
       - go get go.mongodb.org/mongo-driver/mongo
   build:
     commands:
