@@ -12,6 +12,11 @@ phases:
   build:
     commands:
       - go build -o saga-recommender-api .
+      - touch env
+      - DB_NAME=$DB_NAME >> env
+      - DB_USER=$DB_NAME >> env
+      - DB_USER_PASS=$DB_USER_PASS >> env
+      - DB_ENDPOINT=$DB_ENDPOINT >> env
   post_build:
     commands:
       - echo Done
@@ -22,4 +27,5 @@ artifacts:
     - scripts/*
     - config/*
     - appspec.yml
+    - env
     #- env-file

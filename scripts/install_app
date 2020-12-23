@@ -1,0 +1,24 @@
+#!/bin/bash
+chown -R /app ec2-user
+
+amazon-linux-extras install nginx1 -y
+
+cat > /etc/systemd/system/saga-recommender-api.service << 'EOF'
+[Unit]
+Description=Go Application as a Service
+
+[Service]
+User=ec2-user
+
+WorkingDirectory=/app/
+
+ExecStart=/bin/bash /app/saga-recommender-api
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=-/app/environment
+         
+[Install] 
+WantedBy=multi-user.target 
+EOF

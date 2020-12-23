@@ -3,6 +3,8 @@ os: linux
 files:
   - source: /saga-recommender-api
     destination: /app/
+  - source: /env
+    destination: /app/
   - source: /config/go-proxy.conf
     destination: /etc/nginx/default.d/
 hooks:
@@ -10,10 +12,10 @@ hooks:
     - location: scripts/install_nginx
       timeout: 300
       runas: root
-    - location: scripts/start_nginx
+    - location: scripts/start_app
       timeout: 300
       runas: root
   ApplicationStop:
-    - location: scripts/stop_server
+    - location: scripts/stop_app
       timeout: 300
       runas: root
