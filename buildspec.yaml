@@ -18,5 +18,8 @@ phases:
 
 artifacts:
   files:
-    - ./saga-recommender-api
+    - saga-recommender-api
+    - scripts/*
+    - config/*
+    - appspec.yml
     #- env-file
