@@ -14,8 +14,7 @@ phases:
       - go build -o saga-recommender-api .
   post_build:
     commands:
-      - ls
-      - ls src/
+      - echo Done
 
 artifacts:
   files:
