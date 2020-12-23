@@ -11,10 +11,11 @@ phases:
       - go get go.mongodb.org/mongo-driver/mongo
   build:
     commands:
-      - go build .
+      - go build -o saga-recommender-api .
   post_build:
     commands:
       - ls
+      - ls src/
 
 artifacts:
   files:
