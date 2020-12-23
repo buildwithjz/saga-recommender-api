@@ -12,8 +12,11 @@ phases:
   build:
     commands:
       - go build .
+  post_build:
+    commands:
+      - ls
 
 artifacts:
   files:
-    - saga-recommender-api
+    - ./saga-recommender-api
     #- env-file
