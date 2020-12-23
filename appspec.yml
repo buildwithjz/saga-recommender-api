@@ -9,7 +9,7 @@ files:
     destination: /etc/nginx/default.d/
 hooks:
   BeforeInstall:
-    - location: scripts/install_nginx
+    - location: scripts/install_app
       timeout: 300
       runas: root
     - location: scripts/start_app
