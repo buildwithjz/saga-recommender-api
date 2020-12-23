@@ -3,4 +3,9 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo hello
+      - go build .
+
+artifacts:
+  files:
+    - saga-recommender-api
+    #- env-file
