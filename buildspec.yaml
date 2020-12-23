@@ -1,6 +1,11 @@
 version: 0.2
 
 phases:
+
+  pre_build:
+    commands:
+      - yum install go
+      - go get go.mongodb.org/mongo-driver/mongo
   build:
     commands:
       - go build .
