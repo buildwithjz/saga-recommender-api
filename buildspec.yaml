@@ -19,7 +19,7 @@ phases:
       - DB_ENDPOINT=$DB_ENDPOINT >> env
   post_build:
     commands:
-      - echo Done
+      - cat env
 
 artifacts:
   files:

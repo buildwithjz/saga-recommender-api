@@ -16,7 +16,7 @@ SuccessExitStatus=143
 TimeoutStopSec=10
 Restart=on-failure
 RestartSec=5
-EnvironmentFile=-/app/environment
+EnvironmentFile=-/app/env
          
 [Install] 
 WantedBy=multi-user.target 
