@@ -11,7 +11,7 @@ User=ec2-user
 
 WorkingDirectory=/app/
 
-ExecStart=/bin/bash /app/saga-recommender-api
+ExecStart=/app/saga-recommender-api
 SuccessExitStatus=143
 TimeoutStopSec=10
 Restart=on-failure
