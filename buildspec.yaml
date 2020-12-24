@@ -14,7 +14,7 @@ phases:
       - go build -o saga-recommender-api .
       - touch env
       - echo DB_NAME=$DB_NAME >> env
-      - echo DB_USER=$DB_NAME >> env
+      - echo DB_USER=$DB_USER >> env
       - echo DB_USER_PASS=$DB_USER_PASS >> env
       - echo DB_ENDPOINT=$DB_ENDPOINT >> env
   post_build:
