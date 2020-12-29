@@ -4,9 +4,9 @@ phases:
 
   pre_build:
     commands:
-      - add-apt-repository ppa:longsleep/golang-backports
-      - apt update
-      - apt install golang-go -y
+      #- add-apt-repository ppa:longsleep/golang-backports
+      #- apt update
+      #- apt install golang-go -y 
 
       - go get go.mongodb.org/mongo-driver/mongo
   build:
