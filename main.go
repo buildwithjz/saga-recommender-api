@@ -42,7 +42,10 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 
 	if filters == "" {
 		category := ""
-		topics := get_topics(category)
+		topics, err := get_topics(category)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+		}
 
 		//Encode
 		w.Header().Set("Content-Type", "application/json") 
