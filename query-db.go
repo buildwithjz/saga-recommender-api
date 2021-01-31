@@ -112,7 +112,8 @@ func get_topics(category string) []bson.M {
 
 	defer func() {
 		if err = client.Disconnect(ctx); err != nil {
-			fmt.Println(err)
+			fmt.Println("Can't connect to DB")
+			//fmt.Println(err)
 			panic(err)
 		}
 	}()
@@ -123,7 +124,7 @@ func get_topics(category string) []bson.M {
 
 	cur, err := collection.Find(ctx, bson.M{})
 	if err != nil { 
-		fmt.Println(err)
+		fmt.Println("Can't connect to DB")
 		return topics
 	}
 	defer cur.Close(ctx)

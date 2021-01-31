@@ -3,11 +3,24 @@ package main
 import (
     "fmt"
 	"net/http"
-	//"os"
+	"os"
 	"encoding/json"
 	"net/url"
 	"strconv"
+	"log"
 )
+
+func startup() {
+	_, username := os.LookupEnv("DB_USER")
+	_, password := os.LookupEnv("DB_USER_PASS")
+	_, db_name := os.LookupEnv("DB_NAME")
+	_, endpoint := os.LookupEnv("DB_ENDPOINT")
+
+	if !(username && password && db_name && endpoint) {
+		log.Fatalln("Environment Variables not set")
+	}
+
+}
 
 func hello(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Hello world\n")
@@ -35,18 +48,18 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 		w.Header().Set("Content-Type", "application/json") 
 		json.NewEncoder(w).Encode(topics)
 	} else {
-		fmt.Println(filters)
 		filter_map, err :=  url.ParseQuery(filters)
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(filter_map)
+		//fmt.Println(filter_map)
 
 		//Check that queries are valid and have 0 
 		//CheckQueryValidity()
 		minutes_reading, err := strconv.Atoi(filter_map["minutes_reading"][0])
 		if err != nil {
 			fmt.Println(err)
+			// DO A CHECK HERE SUCH THAT IF NO MINUTES SPECIFIED , MINUTES = 0
 		}
 		topic := filter_map["topic"][0]
 
@@ -77,6 +90,9 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 // - /headers
 
 func main() {
+	log.Println("Starting saga-recommender-api server...")
+	log.Println("Checking for environment variables")
+	startup()
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/api/recommend", recommend)
