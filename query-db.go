@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"os"
 	"errors"
+	"log"
 )
 
 func query_db_with_topic(topic string) []bson.M {
@@ -23,7 +24,7 @@ func query_db_with_topic(topic string) []bson.M {
 
 	defer func() {
 		if err = client.Disconnect(ctx); err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			panic(err)
 		}
 	}()
@@ -34,7 +35,7 @@ func query_db_with_topic(topic string) []bson.M {
 	
 	cur, err := collection.Find(ctx, bson.M{"topic": topic})
 	if err != nil { 
-		fmt.Println(err)
+		log.Println(err)
 		return links
 	}
 	defer cur.Close(ctx)
@@ -113,7 +114,7 @@ func get_topics(category string) ([]bson.M, error) {
 
 	defer func() {
 		if err = client.Disconnect(ctx); err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			panic(err)
 		}
 	}()
@@ -124,18 +125,18 @@ func get_topics(category string) ([]bson.M, error) {
 
 	cur, err := collection.Find(ctx, bson.M{})
 	if err != nil { 
-		fmt.Println(err)
+		log.Println(err)
 		return topics, errors.New("Can't connect to DB")
 	}
 	defer cur.Close(ctx)
 
 	if err = cur.All(ctx, &topics); err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return topics, errors.New("Can't connect to DB")
 	}
 
 	if err := cur.Err(); err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return topics, errors.New("Can't connect to DB")
 	}
 	return topics, nil

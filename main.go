@@ -53,16 +53,22 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 	} else {
 		filter_map, err :=  url.ParseQuery(filters)
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
+			w.WriteHeader(http.StatusBadRequest)
+			return
 		}
 		//fmt.Println(filter_map)
 
 		//Check that queries are valid and have 0 
-		//CheckQueryValidity()
+		if ! is_valid_query(filter_map) {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
 		minutes_reading, err := strconv.Atoi(filter_map["minutes_reading"][0])
 		if err != nil {
 			fmt.Println(err)
-			// DO A CHECK HERE SUCH THAT IF NO MINUTES SPECIFIED , MINUTES = 0
+			w.WriteHeader(http.StatusBadRequest)
+			return
 		}
 		topic := filter_map["topic"][0]
 
@@ -87,6 +93,22 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func is_valid_query(filter_map map[string][]string) bool {
+	if _, ok := filter_map["topic"]; ! ok {
+		return false
+	}
+
+	if _, ok := filter_map["minutes_reading"]; ! ok {
+		return false
+	} else {
+		_, err := strconv.Atoi(filter_map["minutes_reading"][0])
+		if err != nil {
+			return false
+		}
+	}
+	return true
+}
+
 // VALID PATHS:
 // - /api/recommend[?<topic>]
 // - /hello
@@ -96,6 +118,7 @@ func main() {
 	log.Println("Starting saga-recommender-api server...")
 	log.Println("Checking for environment variables")
 	startup()
+	log.Println("Environment variables found... API started")
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/api/recommend", recommend)
