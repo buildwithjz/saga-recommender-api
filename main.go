@@ -23,7 +23,7 @@ func startup() {
 }
 
 func hello(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hello world\n")
+	fmt.Fprintf(w, "New feature: Input an estimated reading time with: /api/recommend?topic=<topic>&minutes_reading=<minute_reading>\n")
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
@@ -110,7 +110,7 @@ func is_valid_query(filter_map map[string][]string) bool {
 }
 
 // VALID PATHS:
-// - /api/recommend[?<topic>]
+// - /api/recommend[?topic=<topic>&minutes_reading=<minute_reading>]
 // - /hello
 // - /headers
 
