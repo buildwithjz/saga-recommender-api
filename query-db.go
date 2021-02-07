@@ -75,7 +75,7 @@ func query_db_with_topic_and_minutes(topic string, minutes int) []bson.M {
 	MINUTE_RANGE := 10
 	WORDS_PER_MIN := 150
 
-	//Assume 200 words per minute
+	//Assume 150 words per minute
 
 	p_word_min := WORDS_PER_MIN * (minutes - MINUTE_RANGE)
 	p_word_max := WORDS_PER_MIN * (minutes + MINUTE_RANGE)
