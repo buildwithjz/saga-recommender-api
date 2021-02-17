@@ -83,11 +83,21 @@ func query_db_with_topic_and_minutes(topic string, minutes int) []bson.M {
 	if p_word_min < 0 {
 		p_word_min = 0
 	}
-	
-	cur, err := collection.Find(ctx, bson.M{
-		"topic": topic, 
-		"p-words": bson.M{"$gt": p_word_min, "$lt" : p_word_max},
-	})
+
+	var query bson.M
+
+	if minutes == 0 {
+		query = bson.M{
+			"topic": topic, 
+		}
+	} else {
+		query = bson.M{
+			"topic": topic, 
+			"p-words": bson.M{"$gt": p_word_min, "$lt" : p_word_max},
+		}
+	}
+
+	cur, err := collection.Find(ctx, query)
 	if err != nil { 
 		fmt.Println(err)
 		return links
