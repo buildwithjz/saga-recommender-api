@@ -77,6 +77,7 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 		//query_db_with_topic(topic)
 		//results := query_db_with_topic(topic)
 
+		//Handle minutes_reading as zero as ALL
 		results := query_db_with_topic_and_minutes(topic, minutes_reading)
 
 		if len(results) == 0 {
@@ -86,7 +87,9 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 				url string
 			}
 
-			recommendation := GoogleSearchResponse{url: "https://www.google.com/search?q="+topic}
+			google_search_link := "https://www.google.com/search?q="+topic
+
+			recommendation := GoogleSearchResponse{url: google_search_link}
 			w.Header().Set("Content-Type", "application/json") 
 			json.NewEncoder(w).Encode(recommendation)
 			//fmt.Fprintf(w, "https://www.google.com/search?q="+topic)
