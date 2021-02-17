@@ -82,7 +82,14 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 		if len(results) == 0 {
 			// If for whatever reason no results are returned, then go to the google search for the topic
 			// This may be due to lack of communication with the db
-			fmt.Fprintf(w, "https://www.google.com/search?q="+topic)
+			type GoogleSearchResponse struct {
+				url string
+			}
+
+			recommendation := GoogleSearchResponse{url: "https://www.google.com/search?q="+topic}
+			w.Header().Set("Content-Type", "application/json") 
+			json.NewEncoder(w).Encode(recommendation)
+			//fmt.Fprintf(w, "https://www.google.com/search?q="+topic)
 		} else {
 			recommendation := results[recommend_randon_number(len(results))]
 
