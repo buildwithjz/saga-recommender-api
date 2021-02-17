@@ -84,7 +84,7 @@ func recommend(w http.ResponseWriter, req *http.Request) {
 			// If for whatever reason no results are returned, then go to the google search for the topic
 			// This may be due to lack of communication with the db
 			type GoogleSearchResponse struct {
-				Url string
+				Url string `json:"url"`
 			}
 
 			google_search_link := "https://www.google.com/search?q="+topic
