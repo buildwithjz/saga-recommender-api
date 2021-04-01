@@ -23,7 +23,7 @@ func startup() {
 }
 
 func hello(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "New feature: Input an estimated reading time with: /api/recommend?topic=<topic>&minutes_reading=<minute_reading>\n")
+	fmt.Fprintf(w, "Yay! New feature: Input an estimated reading time with: /api/recommend?topic=<topic>&minutes_reading=<minute_reading>\n")
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
